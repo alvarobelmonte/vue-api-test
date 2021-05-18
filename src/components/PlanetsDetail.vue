@@ -13,14 +13,38 @@
           <b>Orbital Period</b>
           - {{planetData.orbital_period}}
         </div>
+        <div>
+          <b>Diameter</b>
+          - {{planetData.diameter}}
+        </div>
+        <div>
+          <b>Climate</b>
+          - {{planetData.climate}}
+        </div>
+        <div>
+          <b>Gravity</b>
+          - {{planetData.gravity}}
+        </div>
+        <div>
+          <b>Terrain</b>
+          - {{planetData.terrain}}
+        </div>
+        <div>
+          <b>Surface Water</b>
+          - {{planetData.surface_water}}
+        </div>
+        <div>
+          <b>Population</b>
+          - {{planetData.population}}
+        </div>
       </div>
     </TheWrapper>
   </section>
 </template>
 
 <script>
-import TheWrapper from "./TheWrapper";
-import TheSubheader from "../components/TheSubheader";
+import TheWrapper from "./UI/TheWrapper";
+import TheSubheader from "./UI/TheSubheader";
 
 export default {
   data() {

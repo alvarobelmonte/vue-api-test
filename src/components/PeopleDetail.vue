@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import TheWrapper from "./TheWrapper";
-import TheSubheader from "../components/TheSubheader";
+import TheWrapper from "./UI/TheWrapper";
+import TheSubheader from "./UI/TheSubheader";
 
 export default {
   data() {

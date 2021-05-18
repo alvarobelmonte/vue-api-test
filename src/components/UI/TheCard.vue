@@ -1,9 +1,9 @@
 <template>
   <router-link :to="{ name: routeName, params: {url: item.url}}" class="card">
     <div>
-      <img src="../assets/people.svg" alt="icon" class="card-icon" v-if="type === 'people'" />
-      <img src="../assets/starships.svg" alt="icon" class="card-icon" v-if="type === 'starship'" />
-      <img src="../assets/planets.svg" alt="icon" class="card-icon" v-if="type === 'planet'" />
+      <img src="../../assets/people.svg" alt="icon" class="card-icon" v-if="type === 'people'" />
+      <img src="../../assets/starships.svg" alt="icon" class="card-icon" v-if="type === 'starship'" />
+      <img src="../../assets/planets.svg" alt="icon" class="card-icon" v-if="type === 'planet'" />
     </div>
     <div>
       <h2>{{item.name}}</h2>
@@ -34,12 +34,12 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped >
 .card {
   height: auto;
   min-width: 20rem;
   padding: 1.5rem 2rem;
-  border-radius: 3rem;
+  border-radius: 1rem;
   color: #35495e;
   margin: 0 auto;
   cursor: pointer;
@@ -49,6 +49,15 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  transition: all 0.3s;
+}
+.card:hover {
+  transform: translateY(-0.2rem);
+}
+.card::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
 }
 .card div {
   margin: 0rem 3rem;

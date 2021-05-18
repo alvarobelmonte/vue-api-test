@@ -20,7 +20,8 @@ export default {};
   align-items: center;
   flex-direction: column;
 }
-h1 {
+h1,
+h2 {
   color: #35495e;
 }
 </style>

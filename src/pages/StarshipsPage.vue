@@ -2,8 +2,21 @@
   <TheWrapper>
     <h1>STARSHIPS</h1>
     <section v-if="!isLoading">
+      <div>
+        <label for="filter" class="filter-label">Filtrar</label>
+        <input
+          type="text"
+          id="filter"
+          name="filter"
+          v-model.trim="name"
+          @change="onChangeFilter"
+          class="filter"
+        />
+        <LoadButton type="button" @click="loadMore" v-if="canLoad" class="load">LOAD MORE</LoadButton>
+      </div>
+      <h2>{{current}} / {{total}}</h2>
       <TheCard
-        v-for="starship in starships"
+        v-for="starship in starshipsFiltered"
         :key="starship.name"
         :item="starship"
         :id="starship.length"
@@ -17,28 +30,40 @@
 </template>
 
 <script>
-import TheWrapper from "../components/TheWrapper";
-import TheSpinner from "../components/TheSpinner";
-import TheCard from "../components/TheCard";
+import TheWrapper from "../components/UI/TheWrapper";
+import TheSpinner from "../components/UI/TheSpinner";
+import TheCard from "../components/UI/TheCard";
+import LoadButton from "../components/UI/LoadButton";
 
 export default {
   data() {
     return {
       starships: [],
+      starshipsFiltered: [],
       isLoading: true,
       error: false,
+      next: "",
+      canLoad: true,
+      total: 0,
+      current: 0,
+      name: "",
     };
   },
   components: {
     TheWrapper,
     TheSpinner,
     TheCard,
+    LoadButton,
   },
   created() {
     fetch("https://swapi.dev/api/starships")
       .then((response) => response.json())
       .then((data) => {
         this.starships = data.results;
+        this.starshipsFiltered = this.starships;
+        this.total = data.count;
+        this.current = this.starships.length;
+        this.next = data.next;
         this.isLoading = false;
       })
       .catch((error) => {
@@ -47,8 +72,48 @@ export default {
         console.log(error);
       });
   },
+  methods: {
+    loadMore() {
+      fetch(this.next)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.next && data.next.length > 0) {
+            this.next = data.next;
+          } else {
+            this.canLoad = false;
+          }
+
+          this.starships = this.starships.concat(data.results);
+          this.starshipsFiltered = this.starships;
+          this.current = this.starships.length;
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          this.error = true;
+          console.log(error);
+        });
+    },
+    onChangeFilter() {
+      this.starshipsFiltered = this.starships.filter((starship) => {
+        return starship.name.toLowerCase().includes(this.name.toLowerCase());
+      });
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
+.filter {
+  border-radius: 3rem;
+  border: 2px solid grey;
+  font-size: 1.2rem;
+  outline: none;
+  padding: 0.3rem 1rem;
+  color: #35495e;
+}
+.filter-label {
+  font-weight: bold;
+  margin-right: 1rem;
+}
 </style>

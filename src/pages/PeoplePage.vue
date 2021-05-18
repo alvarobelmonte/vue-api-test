@@ -2,9 +2,22 @@
   <TheWrapper>
     <h1>PEOPLE</h1>
     <section v-if="!isLoading">
-      <button type="button" @click="loadMore" v-if="canLoad" class="load">LOAD MORE</button>
+      <div>
+        <label for="filter" class="filter-label">Filtrar</label>
+        <input
+          type="text"
+          id="filter"
+          name="filter"
+          v-model.trim="name"
+          @change="onChangeFilter"
+          class="filter"
+        />
+        <LoadButton type="button" @click="loadMore" v-if="canLoad" class="load">LOAD MORE</LoadButton>
+      </div>
+      <h2>{{current}} / {{total}}</h2>
+
       <TheCard
-        v-for="person in people"
+        v-for="person in peopleFiltered"
         :key="person.name"
         :item="person"
         :id="person.birth_year"
@@ -18,30 +31,39 @@
 </template>
 
 <script>
-import TheWrapper from "../components/TheWrapper";
-import TheSpinner from "../components/TheSpinner";
-import TheCard from "../components/TheCard";
+import TheWrapper from "../components/UI/TheWrapper";
+import TheSpinner from "../components/UI/TheSpinner";
+import LoadButton from "../components/UI/LoadButton";
+import TheCard from "../components/UI/TheCard";
 
 export default {
   data() {
     return {
       people: [],
+      peopleFiltered: [],
       isLoading: true,
       error: false,
       next: "",
       canLoad: true,
+      total: 0,
+      current: 0,
+      name: "",
     };
   },
   components: {
     TheWrapper,
     TheSpinner,
     TheCard,
+    LoadButton,
   },
   created() {
     fetch("https://swapi.dev/api/people")
       .then((response) => response.json())
       .then((data) => {
         this.people = data.results;
+        this.peopleFiltered = this.people;
+        this.total = data.count;
+        this.current = this.people.length;
         this.next = data.next;
         this.isLoading = false;
       })
@@ -62,7 +84,10 @@ export default {
             this.canLoad = false;
           }
 
-          this.people.concat(data.results);
+          this.people = this.people.concat(data.results);
+          this.peopleFiltered = this.people;
+          this.current = this.people.length;
+          console.log(this.people);
           this.isLoading = false;
         })
         .catch((error) => {
@@ -71,24 +96,26 @@ export default {
           console.log(error);
         });
     },
+    onChangeFilter() {
+      this.peopleFiltered = this.people.filter((person) => {
+        return person.name.toLowerCase().includes(this.name.toLowerCase());
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
-.load {
-  background-color: #41b883;
-  color: white;
-  padding: 1rem 3rem;
-  border-radius: 2rem;
-  cursor: pointer;
-  border: 4px solid #35495e;
-  font-style: bold;
-  font-size: 0.9rem;
+.filter {
+  border-radius: 3rem;
+  border: 2px solid grey;
+  font-size: 1.2rem;
+  outline: none;
+  padding: 0.3rem 1rem;
+  color: #35495e;
 }
-.load:hover {
-  color: #41b883;
-  background-color: white;
-  border: 4px solid #41b883;
+.filter-label {
+  font-weight: bold;
+  margin-right: 1rem;
 }
 </style>
