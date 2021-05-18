@@ -3,7 +3,7 @@
     <h1>PLANETS</h1>
     <section v-if="!isLoading">
       <div>
-        <label for="filter" class="filter-label">Filtrar</label>
+        <label for="filter" class="filter-label">Filter</label>
         <input
           type="text"
           id="filter"
@@ -20,7 +20,6 @@
         v-for="planet in planetsFiltered"
         :key="planet.name"
         :item="planet"
-        :id="planet.diameter"
         route-name="planets-detail"
         type="planet"
       />
@@ -87,7 +86,6 @@ export default {
           this.planets = this.planets.concat(data.results);
           this.planetsFiltered = this.planets;
           this.current = this.planets.length;
-          console.log(this.planets);
           this.isLoading = false;
         })
         .catch((error) => {
@@ -117,5 +115,6 @@ export default {
 .filter-label {
   font-weight: bold;
   margin-right: 1rem;
+  color: #35495e;
 }
 </style>

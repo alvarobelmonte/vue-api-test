@@ -2,13 +2,22 @@
   <header>
     <nav>
       <h1>
-        <router-link to="/">Go Back</router-link>
+        <router-link :to="path">Go Back</router-link>
       </h1>
     </nav>
   </header>
 </template>
 
-
+<script>
+export default {
+  props: {
+    path: {
+      type: String,
+      required: true,
+    },
+  },
+};
+</script>
 
 <style scoped>
 header {
@@ -26,14 +35,6 @@ header a {
   color: white;
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  border: 1px solid transparent;
-}
-
-a:active,
-a:hover,
-a.router-link-active {
-  border: 3px solid whitesmoke;
-  border-radius: 2rem;
 }
 
 h1 {
@@ -57,18 +58,5 @@ header nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-header ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-li {
-  margin: 0 0.5rem;
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
   <section>
-    <TheSubheader />
-
+    <TheSubheader path="/starships" />
     <TheWrapper>
       <TheSpinner v-if="isLoading" />
       <main v-if="!isLoading && !error">
@@ -87,6 +86,17 @@ export default {
   background-color: #f6fff2;
 }
 .details div:nth-child(odd) {
-  background-color: #ffd97d;
+  background-color: #cca2fb;
+}
+@media screen and (max-width: 1024px) {
+  .details div {
+    padding: 2% 5rem;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .details div {
+    padding: 2% 2rem;
+  }
 }
 </style>

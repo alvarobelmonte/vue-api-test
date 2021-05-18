@@ -22,10 +22,6 @@ export default {
       type: Object,
       required: true,
     },
-    id: {
-      type: String,
-      required: true,
-    },
     routeName: {
       type: String,
       required: true,
@@ -45,7 +41,7 @@ export default {
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border: 3px solid #41b883;
-  margin: 1rem;
+  margin: 1rem auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,9 +65,19 @@ export default {
 a {
   text-decoration: none;
 }
+
 @media screen and (max-width: 1024px) {
   .card {
     width: 90%;
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .card {
+    width: 70%;
+    font-size: 0.6rem;
+    padding: 1rem;
   }
 }
 </style>

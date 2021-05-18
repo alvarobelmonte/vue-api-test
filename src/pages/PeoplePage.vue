@@ -3,7 +3,7 @@
     <h1>PEOPLE</h1>
     <section v-if="!isLoading">
       <div>
-        <label for="filter" class="filter-label">Filtrar</label>
+        <label for="filter" class="filter-label">Filter</label>
         <input
           type="text"
           id="filter"
@@ -20,7 +20,6 @@
         v-for="person in peopleFiltered"
         :key="person.name"
         :item="person"
-        :id="person.birth_year"
         route-name="people-detail"
         type="people"
       />
@@ -87,7 +86,6 @@ export default {
           this.people = this.people.concat(data.results);
           this.peopleFiltered = this.people;
           this.current = this.people.length;
-          console.log(this.people);
           this.isLoading = false;
         })
         .catch((error) => {
@@ -117,5 +115,6 @@ export default {
 .filter-label {
   font-weight: bold;
   margin-right: 1rem;
+  color: #35495e;
 }
 </style>

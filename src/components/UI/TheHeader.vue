@@ -2,7 +2,7 @@
   <header>
     <nav>
       <h1>
-        <router-link to="/">Vue Api Test - Álvaro Belmonte</router-link>
+        <router-link to="/">Vue API Test - Álvaro Belmonte</router-link>
       </h1>
       <ul>
         <li>
@@ -37,7 +37,7 @@ header a {
   color: white;
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  border: 1px solid transparent;
+  border: 3px solid transparent;
 }
 
 a:active,

@@ -3,7 +3,7 @@
     <h1>STARSHIPS</h1>
     <section v-if="!isLoading">
       <div>
-        <label for="filter" class="filter-label">Filtrar</label>
+        <label for="filter" class="filter-label">Filter</label>
         <input
           type="text"
           id="filter"
@@ -19,7 +19,6 @@
         v-for="starship in starshipsFiltered"
         :key="starship.name"
         :item="starship"
-        :id="starship.length"
         route-name="starships-detail"
         type="starship"
       />
@@ -115,5 +114,6 @@ export default {
 .filter-label {
   font-weight: bold;
   margin-right: 1rem;
+  color: #35495e;
 }
 </style>
